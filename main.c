@@ -1,34 +1,34 @@
 /*
- * キュー 
+ * バッファ
 */
 #include <stdio.h>
-#include <pthread.h>
-#include "BufferThreads.h"
 #include "Buffer.h"
 
 int main(int argc, char const *argv[]) {
-    // キュー初期化
+    // キュー初期
     Buffer buffer, *Q;
     Q = &buffer;
     initBuffer(Q);
 
-    // enBufferスレッド・deBufferスレッドを立てる
-    int endReq = 0;
-    BufferConf conf;
-    conf.Q = Q;
-    conf.timeout = 10;
-    conf.endReq = &endReq;
+    // いくつかpush
+    Item eqItem;
+    for(int i = 0; i < 10; i++){
+        printf("push: %d\n", i);
+        eqItem.id = i;
+        push(Q, eqItem);
+    }
 
-    pthread_t eqThread, dqThread;
-    pthread_create(&dqThread, NULL, deBufferThread, &conf);
-    pthread_create(&eqThread, NULL, enBufferThread, &conf);
+    // 空になるまでpop
+    Item dqItem;
+    int status = BUFFER_OK;
+    char strBuffer[100];
+    memset(strBuffer, 0, 100);
+    while (status != BUFFER_EMPTY) {
+        status = pop(Q, &dqItem);
+        dumpItem(&dqItem, strBuffer);
+        printf("%s\n", strBuffer);
+    }
 
-    //
-    printf("Type any key to endReq.\n");
-    while(getc(stdin) != '\n');
-    *(conf.endReq) = 1;
-    printf("## endReq ##\n");
-    
     deinitBuffer(Q);
     return 0;
 }

@@ -11,10 +11,6 @@ extern "C" {
 /* -------- */
 #include <stdio.h>
 #include <string.h>
-#include <pthread.h>
-#include <assert.h>
-#include <errno.h>
-#include <sys/time.h>
 
 #define NDEBUG
 
@@ -40,25 +36,7 @@ typedef struct buffer {
     int head;
     int tail;
     int length;
-
-    // Thread
-    pthread_mutex_t mutex;
-
-    pthread_cond_t isNotEmpty;
-    pthread_cond_t isNotFull;
-
-    pthread_cond_t isDebufferFinished;
-    pthread_cond_t isEnbufferFinished;
-
 } Buffer;
-
-typedef struct bufferconf {
-    Buffer* Q;
-    int timeout;
-    int* endReq;
-
-} BufferConf;
-
 
 /* -------- */
 
@@ -73,16 +51,8 @@ void dumpBuffer(Buffer *buffer, char* strBuffer);
 void dumpu8Array(uint8_t *data, int length, char *strBuffer);
 
 // Operate.c
-int enBuffer(Buffer* buffer, Item item);
-int deBuffer(Buffer* buffer, Item* item);
-
-//MTSOperate.c
-int enBufferMT(Buffer* buffer, Item item);
-int deBufferMT(Buffer* buffer, Item* item);
-int waitForenBuffer(Buffer* buffer, int timeout);
-int waitFordeBuffer(Buffer* buffer, int timeout);
-void calcTimeSpec(struct timespec* ts, int timeout);
-int waitSignal(pthread_mutex_t* mutex, pthread_cond_t* cond, struct timespec* ts);
+int push(Buffer* buffer, Item item);
+int pop(Buffer* buffer, Item* item);
 
 #ifdef __cplusplus
 }

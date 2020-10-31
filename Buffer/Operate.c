@@ -3,7 +3,7 @@
 */
 #include "Buffer.h"
 
-int enBuffer(Buffer* buffer, Item item){
+int push(Buffer* buffer, Item item){
     int *tail = &(buffer->tail);
     int *head = &(buffer->head);
 
@@ -22,7 +22,7 @@ int enBuffer(Buffer* buffer, Item item){
     return BUFFER_OK;
 }
 
-int deBuffer(Buffer* buffer, Item* item){
+int pop(Buffer* buffer, Item* item){
     int *tail = &(buffer->tail);
     int *head = &(buffer->head);
 

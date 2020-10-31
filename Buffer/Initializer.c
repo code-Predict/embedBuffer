@@ -11,36 +11,12 @@ int initBuffer(Buffer* buffer){
     buffer->head = 0;
     buffer->tail = 0;
     buffer->length = 0;
-
-    // Thread
-    int rst = 0;
-    rst = pthread_mutex_init(&buffer->mutex, NULL);
-    assert(rst == 0);
-    rst = pthread_cond_init(&buffer->isNotEmpty, NULL);
-    assert(rst == 0);
-    rst = pthread_cond_init(&buffer->isNotFull, NULL);
-    assert(rst == 0);
-    rst = pthread_cond_init(&buffer->isDebufferFinished, NULL);
-    assert(rst == 0);
-    rst = pthread_cond_init(&buffer->isEnbufferFinished, NULL);
-    assert(rst == 0);
-    return rst;
+    return 0;
 }
 
 int deinitBuffer(Buffer* buffer){
-    int rst = 0;
-    rst = pthread_cond_destroy(&buffer->isNotEmpty);
-    assert(rst == 0);
-    rst = pthread_cond_destroy(&buffer->isNotFull);
-    assert(rst == 0);
-    rst = pthread_cond_destroy(&buffer->isDebufferFinished);
-    assert(rst == 0);
-    rst = pthread_cond_destroy(&buffer->isEnbufferFinished);
-    assert(rst == 0);
-    rst = pthread_mutex_destroy(&buffer->mutex);
-    assert(rst == 0);
     
-    return rst;
+    return 0;
 }
 
 void initItem(Item* item){
