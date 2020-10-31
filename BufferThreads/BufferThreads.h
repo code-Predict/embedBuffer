@@ -10,10 +10,10 @@
 #include <errno.h>
 #include <sys/time.h>
 #include <unistd.h>
-#include "Queue.h"
+#include "Buffer.h"
 
 /* -------- */
-void *enQueueThread(void *_conf);
-void *deQueueThread(void *_conf);
+void *enBufferThread(void *_conf);
+void *deBufferThread(void *_conf);
 
 #endif

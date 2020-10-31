@@ -3,25 +3,25 @@
 */
 #include <stdio.h>
 #include <pthread.h>
-#include "QueueThreads.h"
-#include "Queue.h"
+#include "BufferThreads.h"
+#include "Buffer.h"
 
 int main(int argc, char const *argv[]) {
     // キュー初期化
-    Queue queue, *Q;
-    Q = &queue;
-    initQueue(Q);
+    Buffer buffer, *Q;
+    Q = &buffer;
+    initBuffer(Q);
 
-    // enQueueスレッド・deQueueスレッドを立てる
+    // enBufferスレッド・deBufferスレッドを立てる
     int endReq = 0;
-    QueueConf conf;
+    BufferConf conf;
     conf.Q = Q;
     conf.timeout = 10;
     conf.endReq = &endReq;
 
     pthread_t eqThread, dqThread;
-    pthread_create(&dqThread, NULL, deQueueThread, &conf);
-    pthread_create(&eqThread, NULL, enQueueThread, &conf);
+    pthread_create(&dqThread, NULL, deBufferThread, &conf);
+    pthread_create(&eqThread, NULL, enBufferThread, &conf);
 
     //
     printf("Type any key to endReq.\n");
@@ -29,6 +29,6 @@ int main(int argc, char const *argv[]) {
     *(conf.endReq) = 1;
     printf("## endReq ##\n");
     
-    deinitQueue(Q);
+    deinitBuffer(Q);
     return 0;
 }

@@ -1,30 +1,30 @@
 /*
- * Queue.hをC++に対応させる
+ * Buffer.hをC++に対応させる
 */
-#include "Queue.h"
+#include "Buffer.h"
 #include <stdio.h>
 
 int main(int argc, char const *argv[]) {
     // キュー初期化
-    Queue queue, *Q;
-    Q = &queue;
-    initQueue(Q);
+    Buffer buffer, *Q;
+    Q = &buffer;
+    initBuffer(Q);
 
-    // 適当なアイテムを追加してenQueue
-    char buffer[8] = "enQueue";
+    // 適当なアイテムを追加してenBuffer
+    char strBuffer[8] = "enBuffer";
     Item item;
     item.id = 12;
-    memcpy(item.data, buffer, 8);
-    enQueue(Q, item);
+    memcpy(item.data, strBuffer, 8);
+    enBuffer(Q, item);
 
-    // deQueueして値を読む
-    char dumpbuffer[256];
-    memset(dumpbuffer, 0, 35);
-    Item dequeueItem;
-    deQueue(Q, &dequeueItem);
-    dumpItem(&dequeueItem, dumpbuffer);
+    // deBufferして値を読む
+    char dumpstrBuffer[256];
+    memset(dumpstrBuffer, 0, 35);
+    Item debufferItem;
+    deBuffer(Q, &debufferItem);
+    dumpItem(&debufferItem, dumpstrBuffer);
 
-    printf("%s\n", dumpbuffer);
+    printf("%s\n", dumpstrBuffer);
 
     return 0;
 }

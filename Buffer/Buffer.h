@@ -1,8 +1,8 @@
 /*
  * FIFOキュー 
 */
-#ifndef _QUEUE_H_
-#define _QUEUE_H_
+#ifndef _BUFFER_H_
+#define _BUFFER_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -18,11 +18,11 @@ extern "C" {
 
 #define NDEBUG
 
-#define QUEUE_SIZE 100000
+#define BUFFER_SIZE 100000
 
-#define QUEUE_OK 0
-#define QUEUE_FULL 1
-#define QUEUE_EMPTY 2
+#define BUFFER_OK 0
+#define BUFFER_FULL 1
+#define BUFFER_EMPTY 2
 
 #ifndef uint8_t
     #define uint8_t unsigned char
@@ -34,9 +34,9 @@ typedef struct item {
     uint8_t data[8];
 } Item;
 
-typedef struct queue {
+typedef struct buffer {
     // Data
-    Item data[QUEUE_SIZE + 1];
+    Item data[BUFFER_SIZE + 1];
     int head;
     int tail;
     int length;
@@ -47,40 +47,40 @@ typedef struct queue {
     pthread_cond_t isNotEmpty;
     pthread_cond_t isNotFull;
 
-    pthread_cond_t isDequeueFinished;
-    pthread_cond_t isEnqueueFinished;
+    pthread_cond_t isDebufferFinished;
+    pthread_cond_t isEnbufferFinished;
 
-} Queue;
+} Buffer;
 
-typedef struct queueconf {
-    Queue* Q;
+typedef struct bufferconf {
+    Buffer* Q;
     int timeout;
     int* endReq;
 
-} QueueConf;
+} BufferConf;
 
 
 /* -------- */
 
 // Initializer.c
-int initQueue(Queue* queue);
-int deinitQueue(Queue* queue);
+int initBuffer(Buffer* buffer);
+int deinitBuffer(Buffer* buffer);
 void initItem(Item *item);
 
 // Dump.c
-void dumpItem(Item *item, char* buffer);
-void dumpQueue(Queue *queue, char* buffer);
-void dumpu8Array(uint8_t *data, int length, char *buffer);
+void dumpItem(Item *item, char* strBuffer);
+void dumpBuffer(Buffer *buffer, char* strBuffer);
+void dumpu8Array(uint8_t *data, int length, char *strBuffer);
 
 // Operate.c
-int enQueue(Queue* queue, Item item);
-int deQueue(Queue* queue, Item* item);
+int enBuffer(Buffer* buffer, Item item);
+int deBuffer(Buffer* buffer, Item* item);
 
 //MTSOperate.c
-int enQueueMT(Queue* queue, Item item);
-int deQueueMT(Queue* queue, Item* item);
-int waitForenQueue(Queue* queue, int timeout);
-int waitFordeQueue(Queue* queue, int timeout);
+int enBufferMT(Buffer* buffer, Item item);
+int deBufferMT(Buffer* buffer, Item* item);
+int waitForenBuffer(Buffer* buffer, int timeout);
+int waitFordeBuffer(Buffer* buffer, int timeout);
 void calcTimeSpec(struct timespec* ts, int timeout);
 int waitSignal(pthread_mutex_t* mutex, pthread_cond_t* cond, struct timespec* ts);
 
@@ -88,4 +88,4 @@ int waitSignal(pthread_mutex_t* mutex, pthread_cond_t* cond, struct timespec* ts
 }
 #endif /* __cplusplus */
 
-#endif /* _QUEUE_H_ */
+#endif /* _BUFFER_H_ */

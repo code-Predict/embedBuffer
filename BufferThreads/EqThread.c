@@ -1,29 +1,29 @@
 /*
  * 
 */
-#include "QueueThreads.h"
+#include "BufferThreads.h"
 
-void *enQueueThread(void *_conf){
+void *enBufferThread(void *_conf){
     // コンフィグからキューとタイムアウト時間を取り出す
-    QueueConf conf = *(QueueConf *)_conf;
-    Queue *queue = conf.Q;
+    BufferConf conf = *(BufferConf *)_conf;
+    Buffer *buffer = conf.Q;
     int *endReq = conf.endReq;
     int cnt = 0;
 
-    //n秒だけ怒涛のenQueue
+    //n秒だけ怒涛のenBuffer
     time_t startTime;
     time(&startTime);
     int limit = 5;
 
     while (!*(endReq)) {
-        char buffer[8] = "enQueue";
+        char strBuffer[8] = "enBuffer";
         Item item;
         item.id = cnt;
-        memcpy(item.data, buffer, 8);
+        memcpy(item.data, strBuffer, 8);
         
-        int enQueueStat = enQueueMT(queue, item);
-        if(enQueueStat == QUEUE_FULL){
-            perror("### QUEUE FULL ###");
+        int enBufferStat = enBufferMT(buffer, item);
+        if(enBufferStat == BUFFER_FULL){
+            perror("### BUFFER FULL ###");
         }
 
         // idカウンタを進める
@@ -42,7 +42,7 @@ void *enQueueThread(void *_conf){
         }
     }
 
-    printf("enQueue Process finished.\n");
-    pthread_cond_broadcast(&(queue->isEnqueueFinished));
+    printf("enBuffer Process finished.\n");
+    pthread_cond_broadcast(&(buffer->isEnbufferFinished));
     pthread_exit(NULL);
 }
