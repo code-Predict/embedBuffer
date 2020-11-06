@@ -14,7 +14,7 @@ extern "C" {
 
 #define NDEBUG
 
-#define BUFFER_SIZE 100000
+#define BUFFER_SIZE 100
 
 #define BUFFER_OK 0
 #define BUFFER_FULL 1
