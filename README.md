@@ -6,37 +6,23 @@ Generic buffer implement written in C.
 **NOTE:** this repository is **minimized edition** for embedded device.  
 Some features such multithreading buffer is shrinked or abolished.
 
+## Latest developing features - dynamic buffer size!
+
+Now, you can define buffer size dynamic!  
+memory for new buffer will be allocated with initializer(`initBuffer` in Initialize.c).  
+Whenever as long as memory allows, you can define buffer of any size!  
+
 ## Usage
 
 ### Generate sample program
 
  1. clone this repository.
- 1. to generate `Buffer.dll` and `a.out`(example program), please execute `make`/.
+ 1. `make` to generate sample.
 
 ### Embed it to your projects
 
-First, please clone or download this repository and put to your project directory.  
-And then, insert `#include`. for example:  
-
-```C
-    #include "Buffer/Buffer.h"
-
-    int main(void){
-        // Buffer initialize
-        Buffer buffer, *Q;
-        Q = &buffer;
-        initBuffer(Q);
-
-        // push
-        Item eqItem;
-        initItem(&eqItem);
-        eqItem.id = 1234;
-        push(Q, eqItem);
-
-        while(1){
-        }
-    }
-```
+In details, see `main.c`.  
+(New dynamic buffer have significantly changed how to embed it, and this is likely to continue. sorry for ambiguous description.)  
 
 ## Licence
 

@@ -3,10 +3,10 @@
 */
 #include "Buffer.h"
 
-// require: max 31 * BUFFER_SIZE  bytes
+// require: max 31 * buffer->size  bytes
 void dumpBuffer(Buffer *buffer, char* strBuffer){
     int idx = 0;
-    for(int i = 0; i < BUFFER_SIZE; i++){
+    for(int i = 0; i < buffer->size; i++){
         char itemBuf[35];
         dumpItem(&(buffer->data[i]), itemBuf);
         idx += sprintf(strBuffer + idx, "%s\n", itemBuf);
