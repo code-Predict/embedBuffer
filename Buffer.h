@@ -11,10 +11,11 @@ extern "C" {
 /* -------- */
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 #define NDEBUG
 
-#define BUFFER_SIZE 100
+// #define BUFFER_SIZE 100
 
 #define BUFFER_OK 0
 #define BUFFER_FULL 1
@@ -32,16 +33,16 @@ typedef struct item {
 
 typedef struct buffer {
     // Data
-    Item data[BUFFER_SIZE + 1];
+    Item *data;
     int head;
     int tail;
-    int length;
+    int size;
 } Buffer;
 
 /* -------- */
 
 // Initializer.c
-int initBuffer(Buffer* buffer);
+int initBuffer(Buffer* buffer, unsigned int length);
 int deinitBuffer(Buffer* buffer);
 void initItem(Item *item);
 

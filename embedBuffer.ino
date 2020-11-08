@@ -17,7 +17,7 @@ void loop(){
     // バッファサイズ+20回push
     Serial.println("Pushing...");
     Item pushItem;
-    for (int i = 0; i < BUFFER_SIZE + 20; i++) {
+    for (int i = 0; i < buffer.length + 20; i++) {
         pushItem.id = i;
         push(B, pushItem);
         Serial.println(pushItem.id);
