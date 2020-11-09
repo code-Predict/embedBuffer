@@ -9,10 +9,14 @@ int push(Buffer* buffer, Item item){
 
     // tailの次=head -> 満杯
     if(((*tail) + 1) % (buffer->size + 1) == *head){
+        // ロックされていればBUFFER_FULLを返す
+        if(buffer->isLocked != 0){
+            return BUFFER_FULL;
+        }
+        
         // popすることでバッファがいっぱいになるのを防ぐ
         Item dust;
         pop(buffer, &dust);
-        // return BUFFER_FULL;
     }
 
     // 末尾に追加し、ポインタを進める 配列の終端にきたら先頭に戻る

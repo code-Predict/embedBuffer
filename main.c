@@ -17,12 +17,13 @@ int main(int argc, char *argv[]) {
 
     // push
     printf("pushing...\n");
+    lockBuffer(B); // To call this, buffer will refuse to slice old data
     Item item;
     for (int i = 0; i < bufferLength + 20; i++){
         initItem(&item);
         item.id = i;
-        printf("%d\n", i);
-        push(B, item);
+        printf("%d ", i);
+        printf("result: %d\n", push(B, item));
     }
 
     // pop

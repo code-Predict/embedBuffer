@@ -36,7 +36,8 @@ typedef struct buffer {
     Item *data;
     int head;
     int tail;
-    int size;
+    unsigned int size;
+    unsigned int isLocked; // 0以外の値を代入するとバッファがロックされる
 } Buffer;
 
 /* -------- */
@@ -54,6 +55,10 @@ void dumpu8Array(uint8_t *data, int length, char *strBuffer);
 // Operate.c
 int push(Buffer* buffer, Item item);
 int pop(Buffer* buffer, Item* item);
+
+// Lock.c
+void lockBuffer(Buffer *buffer);
+void unlockBuffer(Buffer *buffer);
 
 #ifdef __cplusplus
 }

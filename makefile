@@ -13,4 +13,5 @@ Buffer.dll: Buffer.h Dump.c Initializer.c Operate.c
 	gcc $(bufferPath) -c Dump.c 
 	gcc $(bufferPath) -c Initializer.c
 	gcc $(bufferPath) -c Operate.c
-	gcc Dump.o Initializer.o Operate.o -fPIC -shared -o Buffer.dll
+	gcc $(bufferPath) -c Lock.c
+	gcc Dump.o Initializer.o Operate.o Lock.o -fPIC -shared -o Buffer.dll
