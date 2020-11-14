@@ -20,6 +20,7 @@ extern "C" {
 #define BUFFER_OK 0
 #define BUFFER_FULL 1
 #define BUFFER_EMPTY 2
+#define BUFFER_OVER 3
 
 #ifndef uint8_t
     #define uint8_t unsigned char
@@ -55,6 +56,7 @@ void dumpu8Array(uint8_t *data, int length, char *strBuffer);
 // Operate.c
 int push(Buffer* buffer, Item item);
 int pop(Buffer* buffer, Item* item);
+int getItemAt(Buffer* buffer, unsigned int advanced, Item* item);
 
 // Lock.c
 void lockBuffer(Buffer *buffer);

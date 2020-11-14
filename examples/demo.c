@@ -1,5 +1,5 @@
 /*
- * 単体テスト
+ * push/popのデモ
 */
 #include <stdio.h>
 #include "Buffer.h"
