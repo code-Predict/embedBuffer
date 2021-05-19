@@ -24,6 +24,6 @@ Whenever as long as memory allows, you can define buffer of any size!
 In details, see `main.c`.  
 (New dynamic buffer have significantly changed how to embed it, and this is likely to continue. sorry for ambiguous description.)  
 
-## Licence
+## license
 
-All of code in this repository are published under the MIT licence.
+All of code in this repository are published under the MIT license.
